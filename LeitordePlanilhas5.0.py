@@ -185,24 +185,25 @@ def exportar_dados_gui():
     if caminho_arquivo:
         try:
             df.to_excel(caminho_arquivo, index=False)
-            tk.messagebox.showinfo("Exportação", "Dados exportados com sucesso!")
+            tk.messagebox.showinfo("Exportação", f"Dados exportados com sucesso para {caminho_arquivo}")
         except Exception as e:
+            log_error(f"Erro ao exportar dados: {str(e)}")
             tk.messagebox.showerror("Erro", f"Erro ao exportar dados: {str(e)}")
 
 def criar_inserts_gui():
+    global entry_tabela
     global janela_inserts
     janela_inserts = tk.Toplevel(root)
     janela_inserts.title("Criar Inserts SQL")
 
-    tk.Label(janela_inserts, text="Nome da Tabela:").pack(padx=10, pady=10)
-    global entry_tabela
+    tk.Label(janela_inserts, text="Nome da Tabela:").pack(padx=10, pady=5)
     entry_tabela = tk.Entry(janela_inserts, width=50)
     entry_tabela.pack(padx=10, pady=5)
 
-    tk.Button(janela_inserts, text="Gerar Inserts SQL", command=gerar_inserts).pack(pady=10)
+    tk.Button(janela_inserts, text="Gerar Inserts", command=gerar_inserts).pack(pady=10)
 
 def gerar_inserts():
-    global df, mapeamento_colunas
+    global df, mapeamento_colunas, entry_tabela
     if df is None:
         tk.messagebox.showwarning("Aviso", "Nenhum dado disponível para criar os inserts.")
         return
@@ -267,6 +268,35 @@ def validar_e_limpar_dados(df):
         log_error(f"Erro ao validar e limpar dados: {str(e)}")
         return None
 
+def editar_colunas_gui():
+    global df
+    if df is None:
+        tk.messagebox.showerror("Erro", "Nenhum arquivo foi carregado!")
+        return
+    
+    editor_window = tk.Toplevel(root)
+    editor_window.title("Editar Colunas")
+
+    tk.Label(editor_window, text="Selecione as colunas a remover:").pack(padx=10, pady=10)
+
+    coluna_var = tk.Variable(value=df.columns.tolist())
+    lista_colunas = tk.Listbox(editor_window, listvariable=coluna_var, selectmode=tk.MULTIPLE, height=10)
+    lista_colunas.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
+
+    def remover_colunas():
+        colunas_remover = [lista_colunas.get(i) for i in lista_colunas.curselection()]
+        if not colunas_remover:
+            tk.messagebox.showerror("Erro", "Nenhuma coluna selecionada para remover!")
+            return
+        
+        global df
+        df = df.drop(columns=colunas_remover)
+        mostrar_dados(df)
+        tk.messagebox.showinfo("Edição de Colunas", "Colunas removidas com sucesso!")
+        editor_window.destroy()
+
+    tk.Button(editor_window, text="Remover Colunas", command=remover_colunas).pack(pady=10)
+
 def criar_menu():
     menu_bar = tk.Menu(root)
     root.config(menu=menu_bar)
@@ -283,6 +313,7 @@ def criar_menu():
     edit_menu.add_command(label="Configurações", command=abrir_configuracoes_gui)
     edit_menu.add_command(label="Mapeamento de Colunas", command=abrir_mapeamento_gui)
     edit_menu.add_command(label="Filtrar Dados", command=filtrar_dados_gui)
+    edit_menu.add_command(label="Editar Colunas", command=editar_colunas_gui)
     edit_menu.add_command(label="Criar Inserts SQL", command=criar_inserts_gui)
 
 # Configuração da interface gráfica
