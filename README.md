@@ -1,122 +1,95 @@
 # LeitorPython
 Leitor de Dados 4.0
-
-Claro! Aqui está um exemplo de um README para o código fornecido:
-
 ---
 
-# Processador de Arquivos Excel
+# Processamento de Dados - README
 
-Este é um aplicativo GUI desenvolvido em Python que permite processar arquivos Excel, aplicar filtros, selecionar colunas específicas, gerar relatórios e exportar dados em vários formatos. O aplicativo usa a biblioteca `tkinter` para a interface gráfica e `pandas` para manipulação de dados.
+## Descrição
+
+Este aplicativo GUI em Python permite processar arquivos Excel, com funcionalidades para carregar, filtrar, exportar e gerar scripts SQL a partir dos dados. A interface gráfica é construída usando a biblioteca `tkinter`, e os dados são manipulados com a biblioteca `pandas`.
 
 ## Funcionalidades
 
-1. **Carregar Arquivo Excel**
-   - Selecione um arquivo Excel para processar.
-
-2. **Validação e Limpeza de Dados**
-   - Substitui valores `NaN` por `NULL`.
-   - Remove duplicatas.
-
-3. **Exibir Dados**
-   - Mostra o DataFrame carregado em uma área de texto dentro da interface.
-
-4. **Aplicar Filtros**
-   - Permite a seleção de uma coluna para aplicar um filtro.
-   - Exibe uma lista vertical com valores distintos da coluna selecionada para escolher o valor de filtro.
-
-5. **Selecionar Colunas**
-   - Escolha colunas específicas para exibir ou processe todas as colunas.
-
-6. **Gerar Relatório**
-   - Gera um relatório com o número de registros e nomes das colunas.
-
-7. **Exportar Dados**
-   - Exporte os dados em formatos `CSV`, `XLSX` ou `TXT`.
-
-8. **Criar Comandos INSERT SQL**
-   - Gera um arquivo SQL com comandos `INSERT` para diferentes tipos de banco de dados (MySQL, PostgreSQL, SQLite, Oracle).
-
-9. **Exportar e Importar Configurações**
-   - Salve e carregue configurações em arquivos JSON.
+- **Abrir Arquivo**: Carrega um arquivo Excel (.xlsx ou .xls) e exibe seus dados em uma tabela.
+- **Configurações**: Permite configurar o diretório padrão, formato de data e banco de dados preferido.
+- **Filtrar Dados**: Filtra os dados carregados com base em uma coluna e valor especificados.
+- **Exportar Dados**: Exporta os dados filtrados para formatos CSV, Excel ou TXT.
+- **Criar Inserts SQL**: Gera um script SQL para inserir dados em uma tabela de banco de dados.
 
 ## Requisitos
 
 - Python 3.x
-- Bibliotecas:
-  - `pandas`
-  - `tkinter` (geralmente incluído com Python)
-  - `openpyxl` (para trabalhar com arquivos Excel)
+- Bibliotecas: `tkinter`, `pandas`, `openpyxl` (para suporte a arquivos Excel), `json`, `logging`
 
 ## Instalação
 
-1. **Clone o Repositório**
-
+1. **Clone o repositório ou baixe o código**:
    ```bash
-   git clone https://github.com/seu_usuario/processador-arquivos-excel.git
+   git clone <URL_DO_REPOSITORIO>
    ```
 
-2. **Instale as Dependências**
-
-   Crie um ambiente virtual e instale as dependências:
-
+2. **Instale as dependências**:
+   Execute o seguinte comando para instalar as bibliotecas necessárias:
    ```bash
-   python -m venv env
-   source env/bin/activate  # No Windows use `env\Scripts\activate`
    pip install pandas openpyxl
    ```
 
 ## Uso
 
-1. **Executar o Aplicativo**
-
-   Execute o script `main.py` para iniciar o aplicativo:
-
+1. **Executar o aplicativo**:
+   Navegue até o diretório onde o código está localizado e execute:
    ```bash
-   python main.py
+   python seu_script.py
    ```
 
-2. **Carregar e Processar Arquivo**
+2. **Abrir Arquivo**:
+   - Vá para o menu "Arquivo" e selecione "Abrir Arquivo".
+   - Escolha um arquivo Excel para carregar. Os dados serão exibidos na tabela.
 
-   - Clique em "Processar Arquivo" para abrir um diálogo de seleção de arquivos.
-   - Escolha um arquivo Excel e aguarde o processamento.
+3. **Configurações**:
+   - Vá para o menu "Arquivo" e selecione "Configurações".
+   - Modifique as configurações conforme necessário e salve as alterações.
 
-3. **Aplicar Filtros**
+4. **Filtrar Dados**:
+   - Vá para o menu "Processar" e selecione "Filtrar Dados".
+   - Escolha a coluna e o valor para filtrar os dados carregados.
 
-   - Selecione se deseja aplicar um filtro.
-   - Escolha a coluna e o valor desejado a partir da lista vertical exibida.
+5. **Exportar Dados**:
+   - Vá para o menu "Processar" e selecione "Exportar Dados".
+   - Escolha o formato desejado (CSV, Excel ou TXT) e salve o arquivo.
 
-4. **Selecionar Colunas**
+6. **Criar Inserts SQL**:
+   - Vá para o menu "Processar" e selecione "Criar Inserts SQL".
+   - Forneça o nome da tabela e mapeie as colunas do arquivo para as colunas do banco de dados.
+   - O script SQL será salvo em um arquivo .sql.
 
-   - Escolha se deseja selecionar colunas específicas ou todas.
+## Estrutura do Código
 
-5. **Gerar Relatório**
+- **Funções Principais**:
+  - `carregar_configuracoes()`: Carrega as configurações do arquivo JSON ou cria configurações padrão.
+  - `salvar_configuracoes(configuracoes)`: Salva as configurações no arquivo JSON.
+  - `abrir_configuracoes_gui()`: Interface gráfica para modificar as configurações.
+  - `processar_arquivo_gui()`: Carrega e exibe um arquivo Excel, e valida e limpa os dados.
+  - `mostrar_dados(df)`: Exibe os dados carregados em uma tabela (Treeview).
+  - `filtrar_dados_gui()`: Interface gráfica para filtrar dados.
+  - `exportar_dados_gui()`: Interface gráfica para exportar dados em diferentes formatos.
+  - `criar_inserts_gui()`: Interface gráfica para gerar e salvar um script SQL.
 
-   - O relatório será exibido com o número de registros e as colunas.
-
-6. **Exportar Dados**
-
-   - Escolha o formato de exportação e o nome do arquivo para salvar.
-
-7. **Criar Comandos INSERT SQL**
-
-   - Informe o tipo de banco de dados e o nome da tabela para gerar o arquivo SQL.
-
-8. **Exportar e Importar Configurações**
-
-   - Salve e carregue configurações em arquivos JSON conforme necessário.
-
-## Notas
-
-- Certifique-se de que o arquivo Excel não contenha colunas com nomes "Unnamed" não desejados, pois elas serão removidas automaticamente.
-- Assegure-se de que os tipos de dados estejam corretos para evitar erros na criação do SQL.
+- **Logging**:
+  - Logs de erros e informações são salvos em um arquivo `logfile.log` na área de trabalho do usuário.
 
 ## Contribuição
 
-Se você deseja contribuir para este projeto, sinta-se à vontade para abrir um pull request ou relatar problemas. Agradecemos suas contribuições!
+Se você deseja contribuir para o projeto, por favor, siga estas etapas:
+1. Faça um fork do repositório.
+2. Crie uma nova branch (`git checkout -b feature/nova-funcionalidade`).
+3. Faça suas alterações e adicione commits (`git commit -am 'Adiciona nova funcionalidade'`).
+4. Faça um push para a branch (`git push origin feature/nova-funcionalidade`).
+5. Crie um Pull Request.
 
 ## Licença
 
-Este projeto é licenciado sob a [Licença MIT](https://opensource.org/licenses/MIT). Veja o arquivo LICENSE para mais detalhes.
+Este projeto está licenciado sob a Licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
---
+---
+
