@@ -88,77 +88,96 @@ Se você deseja contribuir para o projeto, por favor, siga estas etapas:
 5. Crie um Pull Request.
 
 --Nova Funcionalidade Implementada 
-ata Processor - Tkinter Application
-Descrição
-Este é um aplicativo de desktop desenvolvido em Python com a biblioteca Tkinter, projetado para processar, editar e exportar dados de planilhas Excel. A ferramenta permite a manipulação de dados, como a exclusão de colunas e linhas, filtragem, mapeamento de colunas para inserções SQL e exportação dos dados em diversos formatos.
 
-Funcionalidades
-Carregar Arquivos Excel: Permite carregar arquivos Excel (.xlsx ou .xls) para processamento.
-Exibir Dados: Exibe os dados da planilha carregada em uma interface gráfica com um Treeview.
-Excluir Colunas: Permite selecionar e remover colunas indesejadas dos dados carregados.
-Excluir Linhas: Permite a exclusão de linhas específicas da tabela carregada.
-Filtrar Dados: Filtra os dados com base em critérios fornecidos pelo usuário.
-Mapeamento de Colunas: Mapeia colunas da planilha para colunas de um banco de dados, possibilitando a criação de scripts SQL de inserção.
-Criar Scripts de Inserção SQL: Gera scripts SQL de inserção com base nos dados processados.
-Exportar Dados: Exporta os dados processados para um novo arquivo Excel.
-Configurações: Configurações como diretório padrão, formato de data e banco de dados preferido podem ser ajustadas e salvas.
-Pré-requisitos
-Python 3.x
-Bibliotecas Python:
-pandas
-tkinter
-openpyxl (para leitura/escrita de arquivos Excel)
-json (para salvar configurações)
-Instalação
-Clone este repositório:
-bash
-Copiar código
-git clone https://github.com/usuario/data-processor.git
-Navegue até o diretório do projeto:
-bash
-Copiar código
-cd data-processor
-Instale as dependências necessárias:
-bash
-Copiar código
-pip install pandas openpyxl
-Como Usar
-Execute o script principal:
 
-bash
-Copiar código
-python data_processor.py
-A interface gráfica será aberta com as seguintes opções no menu:
-
-Arquivo: Permite abrir um arquivo Excel e exportar os dados processados.
-Editar: Permite editar as configurações, realizar mapeamento de colunas, filtrar dados, editar colunas, criar scripts SQL e excluir linhas.
-Após carregar um arquivo Excel, os dados serão exibidos em uma tabela. A partir daí, você pode:
-
-Filtrar os dados.
-Excluir colunas ou linhas indesejadas.
-Mapear colunas para criação de inserts SQL.
-Exportar os dados para um novo arquivo Excel.
-Configurações
-As configurações são salvas em um arquivo configuracoes.json na área de trabalho. Este arquivo armazena informações como o diretório padrão, formato de data e banco de dados preferido. Essas configurações podem ser alteradas na interface gráfica em "Editar > Configurações".
-
-Registro de Erros
-Os erros são registrados em um arquivo logfile.log na área de trabalho. Esse log pode ser útil para depuração.
-
-Estrutura do Projeto
-bash
-Copiar código
-├── data_processor.py       # Script principal
-├── README.md               # Instruções e documentação
-└── ...                     # Outros arquivos do projeto
-Problemas Conhecidos
-Excluir Linhas: Se a linha selecionada não puder ser encontrada no DataFrame original, pode ocorrer um erro. Certifique-se de selecionar corretamente as linhas na interface.
-Contribuição
-Se você quiser contribuir para este projeto, sinta-se à vontade para fazer um fork e enviar um pull request.
-
-Licença
-Este projeto está licenciado sob a Licença MIT. Consulte o arquivo LICENSE para obter mais informações.
-
-Este projeto está licenciado sob a Licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+Claro! Aqui está um exemplo de README para o seu código:
 
 ---
 
+# Data Processor - Tkinter Application
+
+## Descrição
+
+Este é um aplicativo de desktop desenvolvido em Python com a biblioteca Tkinter, projetado para processar, editar e exportar dados de planilhas Excel. A ferramenta permite a manipulação de dados, como a exclusão de colunas e linhas, filtragem, mapeamento de colunas para inserções SQL e exportação dos dados em diversos formatos.
+
+## Funcionalidades
+
+- **Carregar Arquivos Excel:** Permite carregar arquivos Excel (.xlsx ou .xls) para processamento.
+- **Exibir Dados:** Exibe os dados da planilha carregada em uma interface gráfica com um `Treeview`.
+- **Excluir Colunas:** Permite selecionar e remover colunas indesejadas dos dados carregados.
+- **Excluir Linhas:** Permite a exclusão de linhas específicas da tabela carregada.
+- **Filtrar Dados:** Filtra os dados com base em critérios fornecidos pelo usuário.
+- **Mapeamento de Colunas:** Mapeia colunas da planilha para colunas de um banco de dados, possibilitando a criação de scripts SQL de inserção.
+- **Criar Scripts de Inserção SQL:** Gera scripts SQL de inserção com base nos dados processados.
+- **Exportar Dados:** Exporta os dados processados para um novo arquivo Excel.
+- **Configurações:** Configurações como diretório padrão, formato de data e banco de dados preferido podem ser ajustadas e salvas.
+
+## Pré-requisitos
+
+- Python 3.x
+- Bibliotecas Python:
+  - `pandas`
+  - `tkinter`
+  - `openpyxl` (para leitura/escrita de arquivos Excel)
+  - `json` (para salvar configurações)
+
+## Instalação
+
+1. Clone este repositório:
+    ```bash
+    git clone https://github.com/usuario/data-processor.git
+    ```
+2. Navegue até o diretório do projeto:
+    ```bash
+    cd data-processor
+    ```
+3. Instale as dependências necessárias:
+    ```bash
+    pip install pandas openpyxl
+    ```
+
+## Como Usar
+
+1. Execute o script principal:
+    ```bash
+    python data_processor.py
+    ```
+2. A interface gráfica será aberta com as seguintes opções no menu:
+    - **Arquivo:** Permite abrir um arquivo Excel e exportar os dados processados.
+    - **Editar:** Permite editar as configurações, realizar mapeamento de colunas, filtrar dados, editar colunas, criar scripts SQL e excluir linhas.
+
+3. Após carregar um arquivo Excel, os dados serão exibidos em uma tabela. A partir daí, você pode:
+    - Filtrar os dados.
+    - Excluir colunas ou linhas indesejadas.
+    - Mapear colunas para criação de inserts SQL.
+    - Exportar os dados para um novo arquivo Excel.
+
+## Configurações
+
+As configurações são salvas em um arquivo `configuracoes.json` na área de trabalho. Este arquivo armazena informações como o diretório padrão, formato de data e banco de dados preferido. Essas configurações podem ser alteradas na interface gráfica em "Editar > Configurações".
+
+## Registro de Erros
+
+Os erros são registrados em um arquivo `logfile.log` na área de trabalho. Esse log pode ser útil para depuração.
+
+## Estrutura do Projeto
+
+```
+├── data_processor.py       # Script principal
+├── README.md               # Instruções e documentação
+└── ...                     # Outros arquivos do projeto
+```
+
+## Problemas Conhecidos
+
+- **Excluir Linhas:** Se a linha selecionada não puder ser encontrada no DataFrame original, pode ocorrer um erro. Certifique-se de selecionar corretamente as linhas na interface.
+  
+## Contribuição
+
+Se você quiser contribuir para este projeto, sinta-se à vontade para fazer um fork e enviar um pull request.
+
+## Licença
+
+Este projeto está licenciado sob a Licença MIT. Consulte o arquivo `LICENSE` para obter mais informações.
+
+---
