@@ -148,6 +148,10 @@ def mostrar_dados(df):
     for row in df_rows:
         treeview.insert("", "end", values=row)
 
+    # Atualiza o contador de linhas
+    contador_linhas_label.config(text=f"Total de Linhas: {len(df)}")
+
+
 def filtrar_dados_gui():
     global df
     if df is None:
@@ -297,6 +301,36 @@ def editar_colunas_gui():
 
     tk.Button(editor_window, text="Remover Colunas", command=remover_colunas).pack(pady=10)
 
+def excluir_linhas_gui():
+    global df
+    if df is None:
+        tk.messagebox.showerror("Erro", "Nenhum arquivo foi carregado!")
+        return
+    
+    excluir_window = tk.Toplevel(root)
+    excluir_window.title("Excluir Linhas")
+
+    tk.Label(excluir_window, text="Selecione as linhas a excluir:").pack(padx=10, pady=10)
+
+    linha_var = tk.Variable(value=df.index.tolist())
+    lista_linhas = tk.Listbox(excluir_window, listvariable=linha_var, selectmode=tk.MULTIPLE, height=10)
+    lista_linhas.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
+
+    def remover_linhas():
+        linhas_remover = [int(lista_linhas.get(i)) for i in lista_linhas.curselection()]
+        if not linhas_remover:
+            tk.messagebox.showerror("Erro", "Nenhuma linha selecionada para remover!")
+            return
+        
+        global df
+        df = df.drop(index=linhas_remover)
+        mostrar_dados(df)
+        tk.messagebox.showinfo("Edição de Linhas", "Linhas removidas com sucesso!")
+        excluir_window.destroy()
+
+    tk.Button(excluir_window, text="Remover Linhas", command=remover_linhas).pack(pady=10)
+
+
 def criar_menu():
     menu_bar = tk.Menu(root)
     root.config(menu=menu_bar)
@@ -315,6 +349,35 @@ def criar_menu():
     edit_menu.add_command(label="Filtrar Dados", command=filtrar_dados_gui)
     edit_menu.add_command(label="Editar Colunas", command=editar_colunas_gui)
     edit_menu.add_command(label="Criar Inserts SQL", command=criar_inserts_gui)
+    edit_menu.add_command(label="Excluir Linhas", command=excluir_linhas_gui)  # Adicionado
+
+def excluir_linha_selecionada():
+    global df
+    if df is None:
+        tk.messagebox.showerror("Erro", "Nenhum arquivo foi carregado!")
+        return
+    
+    # Obtém a linha selecionada no Treeview
+    selecionado = treeview.selection()
+    if not selecionado:
+        tk.messagebox.showerror("Erro", "Nenhuma linha selecionada!")
+        return
+
+    # Para cada item selecionado, remova a linha correspondente no DataFrame
+    for item in selecionado:
+        # Obtém o índice da linha selecionada
+        index = int(treeview.index(item))
+        
+        # Remove a linha no DataFrame
+        df = df.drop(df.index[index])
+
+        # Remove a linha do Treeview
+        treeview.delete(item)
+
+    # Atualiza o contador de linhas
+    contador_linhas_label.config(text=f"Total de Linhas: {len(df)}")
+    tk.messagebox.showinfo("Sucesso", "Linha(s) excluída(s) com sucesso!")
+
 
 # Configuração da interface gráfica
 root = tk.Tk()
@@ -334,6 +397,14 @@ scroll_y = ttk.Scrollbar(frame, orient="vertical", command=treeview.yview)
 scroll_y.pack(side="right", fill="y")
 treeview.configure(yscrollcommand=scroll_y.set)
 
+# Adiciona um rótulo para o contador de linhas
+contador_linhas_label = tk.Label(root, text="Total de Linhas: 0")
+contador_linhas_label.pack(pady=10)
+
+# Botão para excluir linha selecionada
+btn_excluir_linha = tk.Button(root, text="Excluir Linha", command=excluir_linha_selecionada)
+btn_excluir_linha.pack(pady=10)
+
 progress_bar = Progressbar(root, orient="horizontal", length=100, mode="determinate")
 progress_bar.pack(pady=10, fill="x")
 
@@ -344,3 +415,4 @@ configuracoes = carregar_configuracoes()
 criar_menu()
 
 root.mainloop()
+
